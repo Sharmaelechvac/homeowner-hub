@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" class="sk">
+<html lang="en" class="sk" data-scheme="light">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="color-scheme" content="light dark"/>
+<meta name="color-scheme" content="light"/>
 <link rel="icon" href="data:,">
 <title>Homeowner Hub — Sharma Electric &amp; HVAC</title>
 <meta name="description" content="One entrance to Sharma Electric & HVAC's homeowner planners: HVAC change-out, electrical upgrades & service, and smart home packages. Pick what you need, send your list, get one priced quote."/>
@@ -17,9 +17,8 @@
   --bg:#f4f6f9; --surface:#ffffff; --surface2:#eef1f5; --ink:#101d33; --muted:#54657f; --line:#dde3ea;
   --shadow:0 10px 28px rgba(11,30,58,.13);
 }
-@media (prefers-color-scheme: dark){
-  :root{ --bg:#0a1526; --surface:#12233f; --surface2:#182c4d; --ink:#eef2f8; --muted:#a9b8cf; --line:#243a5e; --shadow:0 8px 24px rgba(0,0,0,.4); }
-}
+/* Light-always (Sanjay 2026-11-19): dark only via the kit data-scheme switch, never the OS. */
+[data-scheme="dark"]{ --bg:#0a1526; --surface:#12233f; --surface2:#182c4d; --ink:#eef2f8; --muted:#a9b8cf; --line:#243a5e; --shadow:0 8px 24px rgba(0,0,0,.4); }
 html{ scroll-behavior:smooth; }
 body{ margin:0; font-family:"Barlow",system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; }
 h1,h2,h3,p,ul,figure{ margin:0; }
@@ -72,7 +71,7 @@ section{ scroll-margin-top:16px; }
 .finder .opts{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
 .finder .opts button{ border:1.5px solid var(--line); background:var(--bg); color:var(--ink); border-radius:999px; padding:10px 16px; font-family:"Barlow",sans-serif; font-weight:600; font-size:15px; cursor:pointer; min-height:44px; }
 .finder .opts button.on{ background:var(--navy); color:#fff; border-color:var(--navy); }
-@media (prefers-color-scheme: dark){ .finder .opts button.on{ background:var(--orange); border-color:var(--orange); } }
+[data-scheme="dark"] .finder .opts button.on{ background:var(--orange); border-color:var(--orange); }
 .finder-result{ display:none; margin-top:14px; background:var(--surface2); border-radius:12px; padding:14px; }
 .finder-result.show{ display:block; }
 .finder-result h3{ font-family:"Barlow Condensed",sans-serif; font-size:23px; text-transform:uppercase; line-height:1.05; }
@@ -85,7 +84,7 @@ section{ scroll-margin-top:16px; }
 .btn-primary{ background:var(--orange); color:#fff; }
 .btn-primary:hover{ background:var(--orange-dark); }
 .btn-navy{ background:var(--navy); color:#fff; }
-@media (prefers-color-scheme: dark){ .btn-navy{ background:var(--orange); } }
+[data-scheme="dark"] .btn-navy{ background:var(--orange); }
 .btn-outline{ background:transparent; color:var(--ink); border:1.5px solid var(--line); }
 
 /* ---------- App entrances ---------- */
@@ -152,9 +151,19 @@ footer a{ color:var(--orange); font-weight:600; }
 <script src="https://sharma-kit.sharma-crew.workers.dev/sharma-kit.js" defer></script>
 <style>
 /* Sharma kit bridge: room for the kit header/tab bar; app layout otherwise untouched. */
+/* C-upgrade 2026-11-19: single-screen hub — SK.stack / tabs are N/A (no views to
+   switch, so no cross-fade or scroll keep). Apple-like pass only: large bold page
+   titles (hero + section heads), grouped inset lists (16px side margins, rounded
+   grouped cards), every tappable control 44px+. No bottom sheet / detail overlay
+   in this app; data is inline, so pull-to-refresh is N/A. */
 body.sk{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 24px)}
 .sk-header{z-index:60}
 .topbar{display:none!important}
+main{padding:0 16px 8px}
+.sec-head h2{font-size:34px}
+.hero .quick a{min-height:44px}
+.btn{min-height:44px}
+.callbtn{min-height:44px}
 </style>
 </head>
 <body class="sk">
